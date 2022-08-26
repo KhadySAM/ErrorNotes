@@ -6,20 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name = "PROBLEME")
+@Table(name = "COMPTE")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Probleme {
+public class Compte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id_probleme;
-    private String titre;
-    private String description;
-    private Date date_probleme;
+    private  Long id_compte;
+    private String role;
+    private String password;
 }
