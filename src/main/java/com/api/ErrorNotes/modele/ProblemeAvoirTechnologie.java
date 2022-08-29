@@ -8,22 +8,22 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "UTILISATEUR")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Utilisateur {
+public class ProblemeAvoirTechnologie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_user;
-    private String nom;
-    private String prenom;
-    private String contact;
+    private long id_probtechno;
 
-    //(cascade = CascadeType.ALL)
-    @OneToOne
-    private Compte compte;
+    @ManyToOne
+    @JoinColumn(name = "id_prob")
+    private Probleme probleme;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tech")
+    private Technologie technologie;
 
 }

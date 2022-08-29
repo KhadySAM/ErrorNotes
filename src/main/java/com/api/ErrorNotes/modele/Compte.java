@@ -18,6 +18,7 @@ public class Compte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id_compte;
+    private String email;
     private String role;
     private String password;
 }
