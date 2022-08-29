@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "RESSOURCE")
@@ -21,5 +18,9 @@ public class Ressource {
     @Id
     @GeneratedValue
     private Long id_ressource;
-    private String ressource;
+    private String liens;
+
+    @ManyToOne
+    @JoinColumn(name = "id_solut")
+    private Solution solution;
 }

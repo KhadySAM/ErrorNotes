@@ -1,6 +1,5 @@
 package com.api.ErrorNotes.modele;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,6 @@ import java.util.Date;
 @Table(name = "COMMENTAIRE")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Commentaire {
 
@@ -21,4 +19,12 @@ public class Commentaire {
     private Long id_commentaire;
     private String cont_commentaire;
     private Date date_commentaire;
+
+    @ManyToOne
+    @JoinColumn(name = "id_sol")
+    private Solution solution;
+
+    @ManyToOne
+    @JoinColumn(name = "id_utilisateur")
+    private Utilisateur utilisateur;
 }
