@@ -12,4 +12,9 @@ public class Solution {
     private String description;
     private String methodologie;
     private String temps_resolution;
+
+    @OneToOne
+    @JoinColumn(name = "id_pro")
+    private Probleme probleme;
+
 }
