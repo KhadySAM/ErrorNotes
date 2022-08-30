@@ -35,7 +35,7 @@ public class Probleme {
     @JoinColumn(name = "id_Eta")
     private Etat etat;
 
-    @JsonIgnore
+
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {

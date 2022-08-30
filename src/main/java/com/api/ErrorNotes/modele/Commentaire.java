@@ -25,6 +25,6 @@ public class Commentaire {
     private Solution solution;
 
     @ManyToOne
-    @JoinColumn(name = "id_utilisateur")
+
     private Utilisateur utilisateur;
 }
