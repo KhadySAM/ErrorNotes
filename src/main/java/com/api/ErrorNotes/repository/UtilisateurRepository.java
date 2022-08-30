@@ -1,4 +1,7 @@
 package com.api.ErrorNotes.repository;
 
-public interface UtilisateurRepository {
+import com.api.ErrorNotes.modele.Utilisateur;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
 }
