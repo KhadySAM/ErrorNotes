@@ -1,26 +1,24 @@
 package com.api.ErrorNotes.modele;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "RESSOURCE")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Ressource {
 
     @Id
-    @GeneratedValue
-    private Long id_ressource;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String liens;
 
     @ManyToOne
-    @JoinColumn(name = "id_solut")
+    @JoinColumn(name = "solution_id")
     private Solution solution;
 }

@@ -1,24 +1,20 @@
 package com.api.ErrorNotes.modele;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "COMPTE")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Compte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id_compte;
+    private  Long id;
     private String email;
-    private String role;
     private String password;
+    private String role;
 }

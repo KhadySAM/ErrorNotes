@@ -1,31 +1,28 @@
 package com.api.ErrorNotes.modele;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "COMMENTAIRE")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Commentaire {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_commentaire;
+    private Long id;
     private String cont_commentaire;
     private Date date_commentaire;
 
     @ManyToOne
-    @JoinColumn(name = "id_sol")
+    @JoinColumn(name = "solution_id")
     private Solution solution;
 
     @ManyToOne
-    @JoinColumn(name = "Use")
+    @JoinColumn(name = "utilisateur")
     private Utilisateur utilisateur;
 }

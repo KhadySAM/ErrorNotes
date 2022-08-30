@@ -1,29 +1,23 @@
 package com.api.ErrorNotes.modele;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class ProblemeAvoirTechnologie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_probtechno;
+    private long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_prob")
+    @JoinColumn(name = "probleme_id")
     private Probleme probleme;
 
     @ManyToOne
-    @JoinColumn(name = "id_tech")
+    @JoinColumn(name = "techno_id")
     private Technologie technologie;
 
 }
