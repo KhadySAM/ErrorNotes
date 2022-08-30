@@ -33,4 +33,7 @@ public class Technologie {
     )
     private List<Probleme> problemes = new ArrayList<>();
 
+
+
+
 }

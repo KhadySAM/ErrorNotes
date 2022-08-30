@@ -65,8 +65,14 @@ public class AdminServiceImpl implements AdminService {
         //on enregistre l'utilisateur lui-meme
         return utilisateurRepository.save(utilisateur);
     }
+
     @Override
     public Etat TrouverEtatparNom(String nom) {
         return etatRepository.findByNom(nom);
     }
-}
+
+    //public class AdminServiceImpl {
+
+
+    }
+

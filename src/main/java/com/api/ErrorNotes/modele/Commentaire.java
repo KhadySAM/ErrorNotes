@@ -2,6 +2,11 @@ package com.api.ErrorNotes.modele;
 
 import lombok.*;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -21,8 +26,8 @@ public class Commentaire {
     @ManyToOne
     @JoinColumn(name = "solution_id")
     private Solution solution;
-
     @ManyToOne
     @JoinColumn(name = "utilisateur")
+
     private Utilisateur utilisateur;
 }

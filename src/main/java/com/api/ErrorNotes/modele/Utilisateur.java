@@ -13,7 +13,10 @@ public class Utilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+    private Long id_utilisateur;
+
     private String nom;
     private String prenom;
     private String contact;
