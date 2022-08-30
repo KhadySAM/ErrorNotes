@@ -35,6 +35,6 @@ public class Technologie {
             joinColumns = @JoinColumn(name = "id_prob"),
             inverseJoinColumns = @JoinColumn(name = "id_tech")
     )
-    private List<Technologie> technologies = new ArrayList<>();
+
 
 }

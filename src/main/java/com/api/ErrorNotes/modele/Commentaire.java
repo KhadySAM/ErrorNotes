@@ -1,6 +1,5 @@
 package com.api.ErrorNotes.modele;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +25,6 @@ public class Commentaire {
     private Solution solution;
 
     @ManyToOne
-    @JoinColumn(name = "Use")
+
     private Utilisateur utilisateur;
 }

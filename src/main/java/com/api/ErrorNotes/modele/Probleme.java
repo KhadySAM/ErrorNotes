@@ -1,5 +1,6 @@
 package com.api.ErrorNotes.modele;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class Probleme {
     @ManyToOne
     @JoinColumn(name = "id_Eta")
     private Etat etat;
+
 
     @ManyToMany(
             fetch = FetchType.LAZY,
