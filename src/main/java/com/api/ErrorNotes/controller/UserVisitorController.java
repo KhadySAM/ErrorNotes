@@ -1,13 +1,65 @@
 package com.api.ErrorNotes.controller;
 
-
+import com.api.ErrorNotes.modele.*;
+import com.api.ErrorNotes.service.UserVisitorService;
+import com.api.ErrorNotes.service.UtilisateurService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/visitor")
+@RequestMapping("/visiteur")
 @AllArgsConstructor
-public class UserVisitorController {
+public class UserVisitorController {// /"visiteur"/"creerCompte"
+
+    final private UserVisitorService userVisitorService;
+    final private UtilisateurService utilisateurService;
+
+    @PostMapping("/creerCompte/{email}/{password}")//{email}/{password}
+    public String creerCompte(@RequestBody Utilisateur utilisateur){
+
+        if(utilisateurService.trouverCompteParEmail(utilisateur.getCompte().getEmail()) == null){
+            if(utilisateur.getCompte().getEmail().trim().equals("") || utilisateur.getCompte().getPassword().trim().equals("")){
+                return "Veuillez remplir les champs obligatoire";
+            }else {
+                if (utilisateur.getCompte().getPassword().length() >= 8){
+                    userVisitorService.creerCompteUser(utilisateur, utilisateur.getCompte().getEmail(), utilisateur.getCompte().getPassword());
+                    return "Votre compte est créée avec succes";
+                }else{
+                    return "Le mot de passe doit être superieur à 8 caracteurs";
+                }
+
+            }
+        }else {
+            return "Cet email existe déjà";
+        }
+    }
+
+    @GetMapping("/afficherProbleme")
+    public List<Probleme> readProbleme(){
+
+        return userVisitorService.lireProbleme();
+    }
+
+    @GetMapping("/afficherSolution")
+    public List<Solution> readSolution(){
+
+        return userVisitorService.lireSolution();
+    }
+
+    @GetMapping("/afficherCommentaire")
+    public List<Commentaire> readCommentaire(){
+
+        return userVisitorService.lireCommentaire();
+    }
+
+    @GetMapping("/afficherTechonologie")
+    public List<Technologie> readTechnologie(){
+
+        return userVisitorService.lireTechnologie();
+    }
 
 }
+
+
