@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserVisitorServiceImplTest {
@@ -32,10 +33,12 @@ class UserVisitorServiceImplTest {
         Utilisateur user = new Utilisateur();
         user = utilisateurRepository.findById(1L).get();
         compteUser.setEmail("kmahamadou858@gmail.com");
-        compteUser.setPassword("nnnnnnnnnnnnnnnn");
+        compteUser.setPassword("lllllllllll");
         compteUser.setRole("user");
         userVisitorService.creerCompteUser(user, "ksamake18@gmail.com", "testadmin12");
-        Compte userC = compteRepository.save(compteUser);
+       // Compte userC = compteRepository.save(compteUser);
+
+
 
     }
 
