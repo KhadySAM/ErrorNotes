@@ -2,6 +2,7 @@ package com.api.ErrorNotes.controller;
 
 
 import com.api.ErrorNotes.modele.*;
+import com.api.ErrorNotes.repository.SolutionRepository;
 import com.api.ErrorNotes.service.UtilisateurService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class UserController {
 
     @Autowired
     final private UtilisateurService utilisateurService;
+
+    @Autowired
+    final private SolutionRepository solutionRepository;
     //final private RepositoryProblemeTechnologie repositoryProblemeTechnologie;
 
     @PostMapping("/createProbleme/{email}/{password}/{tech}")
@@ -26,7 +30,7 @@ public class UserController {
         if (utilisateurService.connexion(email, password)) {
 
             //verifie si le titre mis à l'url a un problème correspondant
-            if(utilisateurService.trouverProblemeParTitre(probleme.getTitre()) == null) {
+            if (utilisateurService.trouverProblemeParTitre(probleme.getTitre()) == null) {
 
                 //recupere le compte par email
                 Compte utilisateurCompte = utilisateurService.trouverCompteParEmail(email);
@@ -37,7 +41,7 @@ public class UserController {
                 Utilisateur user = utilisateurService.trouverUtilisateurParCompte(utilisateurCompte);
 
                 //Un tableau qui contiendra une technologie par case
-                String [] techTab = tech.split(":");
+                String[] techTab = tech.split(":");
                 System.out.println("Les technologies mises" + techTab);
 
                 //Initialisation de la liste qui contenera la liste des technologies à enregistrer
@@ -50,7 +54,7 @@ public class UserController {
                 // les technologies correspondantes afin de les ajouter à la list à de type problemes_technologie
                 //qui sera en fin enregistré
 
-                for (String t: techTab){
+                for (String t : techTab) {
 
                     //Instaciation de la classe Probleme_technologies, utilisé pour stocker aléatoirement
                     //les problemes_technologies recuperer
@@ -60,7 +64,7 @@ public class UserController {
                     Technologie techno = utilisateurService.trouverTechonologieParNom(t);
 
                     //On met la valeur de la variable bool à false lorsqu'une tecnologie sera introuvable dans la base
-                    if(techno == null){
+                    if (techno == null) {
                         bool = false;
                     }
 
@@ -74,7 +78,7 @@ public class UserController {
                     listProTechno.add(proTechno);
 
                 }
-                if (bool == true){//on verifie si toutes les technologies ont été retrouvé dans la base
+                if (bool == true) {//on verifie si toutes les technologies ont été retrouvé dans la base
 
                     //on crée le probleme en lui attribuant l'user actuel
                     utilisateurService.creerProbleme(probleme, user);
@@ -82,18 +86,18 @@ public class UserController {
                     //repositoryProblemeTechnologie.saveAll(listProTechno);
                     utilisateurService.enregistrerProblemesTechnologies(listProTechno);
                     return "Probleme enregistré avec succes";
-                }else {
-                    return  "Une des technologie n'existe pas";
+                } else {
+                    return "Une des technologie n'existe pas";
                 }
-            }else {
+            } else {
                 return "Ce problème existe déjà veuillez lire la solution";
             }
-        }else {
+        } else {
             return "Acces refusé";
         }
     }
 
-    @PostMapping("/createSolution/{email}/{password}/{titreProbleme}/{ressource}")
+    @PostMapping("/createSolution/{email}/{password}/{titreProbleme}/{ressources}")
     public String createSolution(@RequestBody Solution solution, @PathVariable String email, @PathVariable String password, @PathVariable String titreProbleme, @PathVariable String ressources) {
 
         //recupere le probleme sur lequel la solution doit etre  posté
@@ -103,7 +107,7 @@ public class UserController {
         if (prob != null) {
             //recuperation de l'id du problème
             Long idPro = prob.getId();
-
+            System.err.println(idPro);
             //recupere l'id de l'utilisateur qui a posté le problème
             Long id_userProbleme = utilisateurService.trouverProblemeParId(idPro).getUtilisateur().getId();
 
@@ -113,29 +117,33 @@ public class UserController {
             //recuperation de l'id de l'user qui veut poster une solution
             Long id_userSolution = utilisateurService.trouverUtilisateurParCompte(compte_user).getId();
 
-            System.out.println(id_userSolution);
-            System.out.println(id_userProbleme);
+            System.err.println(id_userSolution);
+            System.err.println(id_userProbleme);
 
 
             //si email et password de l'user sont correct
             if (utilisateurService.connexion(email, password) && id_userProbleme.equals(id_userSolution)) {
 
+                Probleme pro = utilisateurService.trouverProblemeParTitre(titreProbleme);
+                Solution sol = solutionRepository.findByProbleme(pro);
+
                 //verfie si le probleme specifié a une solution ou pas
-                if (utilisateurService.trouverSolutionParIdProbleme(idPro) == null) {
+                if (pro != null && sol == null) {
 
                     //creation de la solution
-                    Solution solutionCreate = utilisateurService.creerSolution(solution, prob);
+                    Solution solutionCree = utilisateurService.creerSolution(solution, prob);
 
                     //list permettant de stocker les resource dans l'objectif de les enregister tous en même temps
-                    List<Ressource> ressourceListe = new ArrayList<>();
+                    List<Ressource> ressourceList = new ArrayList<>();
 
                     //Un tableau qui contenera les ressources par case
-                    String[] tabRess = ressources.split(":");
+                    String[] tabRessources = ressources.split(":");
+
 
                     //cette boucle sert à parcours les ressources envoyées pour recuper
                     //et les ajouter un à un, à  la list ressourcesList à l'aide de l'instance de ressource appélé
                     //ress
-                    for (String r : tabRess) {
+                    for (String r : tabRessources) {
 
                         //instance de ressource
                         Ressource ress = new Ressource();
@@ -144,14 +152,14 @@ public class UserController {
                         ress.setLiens(r);
 
                         //on atribue la solution à ress actuelle
-                        ress.setSolution(solutionCreate);
+                        ress.setSolution(solutionCree);
 
                         //on stocke ress actuel à ressourceList, la liste à enregistré
-                        ressourceListe.add(ress);
+                        ressourceList.add(ress);
                     }
 
                     //enregistrement des different ressources
-                    utilisateurService.enregistrerRessource(ressourceListe);
+                    utilisateurService.enregistrerRessource(ressourceList);
 
                     return "Solution enregistré avec succes";
 
@@ -168,39 +176,46 @@ public class UserController {
     }
 
     @PostMapping("/createCommentaire/{email}/{password}/{titreProbleme}")
-    public String createCommentaire (@RequestBody Commentaire commentaire, @PathVariable String
-            email, @PathVariable String password, @PathVariable String titreProbleme){
+    public String createCommentaire(@RequestBody Commentaire commentaire, @PathVariable String
+            email, @PathVariable String password, @PathVariable String titreProbleme) {
 
-        //Authentification
         if (utilisateurService.connexion(email, password)) {
 
-            //recupere le probleme correspondant au titre mis à l'url
             Probleme probleme = utilisateurService.trouverProblemeParTitre(titreProbleme);
+            Solution solution = solutionRepository.findByProbleme(probleme);
 
-            //verifie si le probleme existe ou pas
-            if (probleme != null){
+            if (probleme != null && solution != null) {
 
-                //recupere l'id du probleme
                 Long idProbleme = probleme.getId();
 
-                //recupere la solution correspondant au probleme
-                Solution solution = utilisateurService.trouverSolutionParIdProbleme(idProbleme);
+                System.err.println(idProbleme);
 
-                //recuperation de l'user par son email
+                Long idSolu = solution.getIds();
+                System.err.println(idSolu);
+
                 Compte compteUser = utilisateurService.trouverCompteParEmail(email);
 
-                //recuperation de l'utilisateur par son compte
                 Utilisateur user = utilisateurService.trouverUtilisateurParCompte(compteUser);
 
-                //c reation du commentaire
+
                 utilisateurService.creerCommentaire(commentaire, user, solution);
                 return "Commentaire enregistré avec succes";
-            }else {//si on trouve pas le probleme
+            } else {
                 return "Ce probleme n'existe pas";
             }
-        }else{//au cas ou l'authentification echouera
-            return "Acces refusé";
+        } else {
+            return "Erreur d'authentification";
         }
 
     }
+
+  /*  @DeleteMapping("/DeleteCommentaire/{id}")
+    public String suppCommentaire(@PathVariable Long id, String email, String password) {
+        if (utilisateurService.connexion(email, password)) {
+            utilisateurService.supprimerCommentair(id);
+        }
+
+        return "Commentaire supprimer";
+    }*/
 }
+

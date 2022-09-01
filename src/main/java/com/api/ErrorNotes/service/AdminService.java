@@ -1,9 +1,12 @@
 package com.api.ErrorNotes.service;
 
 import com.api.ErrorNotes.modele.Etat;
+import com.api.ErrorNotes.modele.Solution;
 import com.api.ErrorNotes.modele.Technologie;
 import com.api.ErrorNotes.modele.Utilisateur;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface AdminService {
@@ -18,7 +21,9 @@ public interface AdminService {
 
     Etat TrouverEtatparNom(String nom);
 
+   // List<Technologie> lireTechnologie();
 
+   // List<Etat> lireEtat();
 
     }
 

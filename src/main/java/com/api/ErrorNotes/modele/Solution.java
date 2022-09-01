@@ -16,7 +16,7 @@ public class Solution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long ids;
     private String contenu;
     private String methodologie;
     private Date date;

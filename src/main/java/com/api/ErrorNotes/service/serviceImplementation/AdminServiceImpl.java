@@ -14,6 +14,8 @@ import com.api.ErrorNotes.service.AdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 
@@ -68,11 +70,19 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Etat TrouverEtatparNom(String nom) {
+
         return etatRepository.findByNom(nom);
     }
 
-    //public class AdminServiceImpl {
-
-
+    /*@Override
+    public List<Technologie> lireTechnologie() {
+        return technologieRepository.findAll();
     }
+
+    @Override
+    public List<Etat> lireEtat() {
+        return etatRepository.findAll();
+    }*/
+
+}
 

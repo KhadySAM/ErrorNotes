@@ -10,6 +10,8 @@ import com.api.ErrorNotes.service.UtilisateurService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin")
 @AllArgsConstructor
@@ -93,6 +95,22 @@ public class AdminController {
 
     @DeleteMapping("/DeleteCommentaire/{id}")
     public String suppCommentaire(@PathVariable Long id){
+
         return adminService.supprimerCommentair(id);
     }
+
+    /*
+    @GetMapping("/afficherTechonologie")
+    public List<Technologie> readTechnologie(){
+
+        return adminService.lireTechnologie();
+    }
+
+    @GetMapping("/afficherTechonologie")
+    public List<Etat> readEtat(){
+
+        return adminService.lireEtat();
+    }*/
+
+
 }

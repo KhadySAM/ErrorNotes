@@ -144,5 +144,4 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         return ressourceRepository.saveAll(ressources);
     }
 
-
 }

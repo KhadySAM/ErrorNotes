@@ -19,7 +19,7 @@ public interface UtilisateurService {
 
     Probleme trouverProblemeParTitre(String titre);
 
-    Solution trouverSolutionParIdProbleme(Long problemeId);
+   Solution trouverSolutionParIdProbleme(Long problemeId);
 
     Compte trouverCompteParEmail(String email);
 

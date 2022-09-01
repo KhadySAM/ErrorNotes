@@ -50,9 +50,4 @@ public class UserVisitorServiceImpl implements UserVisitorService {
         return solutionRepository.findAll();
     }
 
-    @Override
-    public List<Technologie> lireTechnologie() {
-
-        return technologieRepository.findAll();
-    }
 }

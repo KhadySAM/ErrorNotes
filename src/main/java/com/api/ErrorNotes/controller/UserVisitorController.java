@@ -16,18 +16,18 @@ public class UserVisitorController {// /"visiteur"/"creerCompte"
     final private UserVisitorService userVisitorService;
     final private UtilisateurService utilisateurService;
 
-    @PostMapping("/creerCompte/{email}/{password}")//{email}/{password}
+    @PostMapping("/creerCompte")//{email}/{password}
     public String creerCompte(@RequestBody Utilisateur utilisateur){
 
         if(utilisateurService.trouverCompteParEmail(utilisateur.getCompte().getEmail()) == null){
             if(utilisateur.getCompte().getEmail().trim().equals("") || utilisateur.getCompte().getPassword().trim().equals("")){
                 return "Veuillez remplir les champs obligatoire";
             }else {
-                if (utilisateur.getCompte().getPassword().length() >= 8){
+                if (utilisateur.getCompte().getPassword().length() >= 10){
                     userVisitorService.creerCompteUser(utilisateur, utilisateur.getCompte().getEmail(), utilisateur.getCompte().getPassword());
-                    return "Votre compte est créée avec succes";
+                    return "Compte est créée avec succes";
                 }else{
-                    return "Le mot de passe doit être superieur à 8 caracteurs";
+                    return "Le mot de passe doit être superieur à 10 caracteurs";
                 }
 
             }
@@ -37,7 +37,7 @@ public class UserVisitorController {// /"visiteur"/"creerCompte"
     }
 
     @GetMapping("/afficherProbleme")
-    public List<Probleme> readProbleme(){
+    public List<Probleme> lireProbleme(){
 
         return userVisitorService.lireProbleme();
     }
@@ -54,11 +54,6 @@ public class UserVisitorController {// /"visiteur"/"creerCompte"
         return userVisitorService.lireCommentaire();
     }
 
-    @GetMapping("/afficherTechonologie")
-    public List<Technologie> readTechnologie(){
-
-        return userVisitorService.lireTechnologie();
-    }
 
 }
 
