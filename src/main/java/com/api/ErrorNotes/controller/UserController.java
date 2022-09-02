@@ -16,12 +16,14 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
 
+
     @Autowired
     final private UtilisateurService utilisateurService;
 
     @Autowired
     final private SolutionRepository solutionRepository;
-    //final private RepositoryProblemeTechnologie repositoryProblemeTechnologie;
+
+
 
     @PostMapping("/createProbleme/{email}/{password}/{tech}")
     public String createProbleme(@RequestBody Probleme probleme, @PathVariable String email, @PathVariable String password, @PathVariable String tech) {
@@ -71,7 +73,7 @@ public class UserController {
                     //On attribue la technologie actuelle à proTechno
                     proTechno.setTechnologie(techno);
 
-                    //On attribue le proble à proTechno
+                    //On attribue le probleme à proTechno
                     proTechno.setProbleme(probleme);
 
                     //ajout de problemes_technologie formé à la list à retourner
@@ -140,7 +142,7 @@ public class UserController {
                     String[] tabRessources = ressources.split(":");
 
 
-                    //cette boucle sert à parcours les ressources envoyées pour recuper
+                    //Sert à parcours les ressources envoyées pour les recuper
                     //et les ajouter un à un, à  la list ressourcesList à l'aide de l'instance de ressource appélé
                     //ress
                     for (String r : tabRessources) {
@@ -201,7 +203,7 @@ public class UserController {
                 utilisateurService.creerCommentaire(commentaire, user, solution);
                 return "Commentaire enregistré avec succes";
             } else {
-                return "Ce probleme n'existe pas";
+                return "On ne peut pas commenter une solution qui n'existe pas";
             }
         } else {
             return "Erreur d'authentification";
@@ -209,13 +211,6 @@ public class UserController {
 
     }
 
-  /*  @DeleteMapping("/DeleteCommentaire/{id}")
-    public String suppCommentaire(@PathVariable Long id, String email, String password) {
-        if (utilisateurService.connexion(email, password)) {
-            utilisateurService.supprimerCommentair(id);
-        }
-
-        return "Commentaire supprimer";
-    }*/
 }
+
 

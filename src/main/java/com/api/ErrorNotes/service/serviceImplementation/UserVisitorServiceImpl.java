@@ -20,12 +20,16 @@ public class UserVisitorServiceImpl implements UserVisitorService {
 
 
     //Implementation de la methode permettant de créer un compte utilisateur
-
+/*    @Autowired
+    private PasswordEncoder passwordEncoder;*/
     @Override
     public Utilisateur creerCompteUser(Utilisateur utilisateur, String email, String password) {
         Compte compte = new Compte();
         compte.setEmail(email);
         compte.setPassword(password);
+      /*  //recuperation du mot de passe
+        String pass = compte.getPassword();
+        compte.setPassword(passwordEncoder.encode(pass));*/
         compte.setRole("user");
         compteRepository.save(compte);
         utilisateur.setCompte(compte);
@@ -38,6 +42,7 @@ public class UserVisitorServiceImpl implements UserVisitorService {
         return problemeRepository.findAll();
     }
 
+
     @Override
     public List<Commentaire> lireCommentaire() {
 
@@ -49,5 +54,6 @@ public class UserVisitorServiceImpl implements UserVisitorService {
 
         return solutionRepository.findAll();
     }
+
 
 }

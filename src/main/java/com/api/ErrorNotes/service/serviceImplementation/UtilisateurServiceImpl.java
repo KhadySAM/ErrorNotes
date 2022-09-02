@@ -143,5 +143,25 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public List<Ressource> enregistrerRessource(List<Ressource> ressources) {
         return ressourceRepository.saveAll(ressources);
     }
+/*
+    @Override
+    public Probleme modifierProbleme(Long id, Probleme probleme) {
+        return problemeRepository.findById(id)
+                .map(p-> {
+                    p.setDescription(probleme.getDescription());
+                    p.setTechnologies(probleme.getTechnologies());
+                    p.setEtat(probleme.getEtat());
+                    return problemeRepository.save(probleme);
+                }).orElseThrow(() -> new RuntimeException("Probleme introuvable !"));
+    }
+
+    @Override
+    public Solution modifierSolution(Long id, Solution solution) {
+        return solutionRepository.findById(id)
+                .map(s-> {
+                    s.setContenu(solution.getContenu());
+                    return solutionRepository.save(solution);
+                }).orElseThrow(() -> new RuntimeException("Solution introuvable !"));
+    }*/
 
 }

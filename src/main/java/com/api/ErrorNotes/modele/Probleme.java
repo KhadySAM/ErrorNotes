@@ -26,9 +26,12 @@ public class Probleme {
     private String description;
     private Date date;
 
+
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;
+
+
 
 
     @ManyToOne
@@ -36,6 +39,7 @@ public class Probleme {
     private Etat etat;
 
 
+    @JsonIgnore
     @ManyToMany(
             fetch = FetchType.LAZY,
             cascade = {

@@ -33,4 +33,12 @@ public interface UtilisateurService {
 
     List<Ressource> enregistrerRessource(List<Ressource> ressources);
 
+
+/*
+    Probleme modifierProbleme(Long id, Probleme probleme);
+
+    Solution modifierSolution(Long id, Solution solution);
+*/
+
+
 }

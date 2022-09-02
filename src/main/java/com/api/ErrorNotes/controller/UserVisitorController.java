@@ -4,6 +4,7 @@ import com.api.ErrorNotes.modele.*;
 import com.api.ErrorNotes.service.UserVisitorService;
 import com.api.ErrorNotes.service.UtilisateurService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +12,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/visiteur")
 @AllArgsConstructor
-public class UserVisitorController {// /"visiteur"/"creerCompte"
+public class UserVisitorController {
 
+    @Autowired
     final private UserVisitorService userVisitorService;
+
+    @Autowired
     final private UtilisateurService utilisateurService;
 
     @PostMapping("/creerCompte")//{email}/{password}
@@ -36,10 +40,11 @@ public class UserVisitorController {// /"visiteur"/"creerCompte"
         }
     }
 
-    @GetMapping("/afficherProbleme")
-    public List<Probleme> lireProbleme(){
 
-        return userVisitorService.lireProbleme();
+    @GetMapping("/afficheProb")
+    public List<Probleme> readProbleme(){
+
+        return  userVisitorService.lireProbleme();
     }
 
     @GetMapping("/afficherSolution")
